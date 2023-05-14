@@ -9,10 +9,10 @@
 ## Table of Contents
 
 - [Introduction](#introduction)
-- [Problem Statement]
-- [Example Datasets]
-- [Entity Relationship Diagram]
-- [Case Study Questions]
+- [Problem Statement](#problem-statement)
+- [Example Datasets](#example-datasets)
+- [Entity Relationship Diagram](#entity-relationship-diagram)
+- [Case Study Questions](#case-study-questions)
 
 ## Introduction
 
