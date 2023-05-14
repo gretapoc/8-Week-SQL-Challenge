@@ -8,10 +8,11 @@
 
 ## Table of Contents
 
-- Introduction
-- Problem Statement
-- Entity Relationship Diagram
-- Case Study Questions
+- [Introduction]
+- [Problem Statement]
+- [Example Datasets]
+- [Entity Relationship Diagram]
+- [Case Study Questions]
 
 ## Introduction
 
@@ -19,18 +20,20 @@ Danny seriously loves Japanese food so in the beginning of 2021, he decides to e
 
 Danny’s Diner is in need of your assistance to help the restaurant stay afloat - the restaurant has captured some very basic data from their few months of operation but have no idea how to use their data to help them run the business.
 
-### Problem Statement
+## Problem Statement
 
 Danny wants to use the data to answer a few simple questions about his customers, especially about their visiting patterns, how much money they’ve spent and also which menu items are their favourite. 
 Having this deeper connection with his customers will help him deliver a better and more personalised experience for his loyal customers.
 
-## Entity Relationship Diagram
+## Example Datasets
 
 Danny has shared 3 key datasets for this case study:
 
-- `sales`
-- `menu`
-- `members`
+- The `sales` table captures all `customer_id` level purchases with an corresponding `order_date` and `product_id` information for when and what menu items were ordered.
+- The `menu` table maps the `product_id` to the actual `product_name` and `price` of each menu item.
+- The final `members` table captures the `join_date` when a `customer_id` joined the beta version of the Danny’s Diner loyalty program.
+
+## Entity Relationship Diagram
 
 <p align="center">
   <img src="https://github.com/gretapoc/8-Week-SQL-Challenge/blob/main/images/diag1.PNG">
