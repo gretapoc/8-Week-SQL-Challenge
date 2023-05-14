@@ -20,6 +20,10 @@ This project contains solutions for the [8 Week SQL Challenge](https://8weeksqlc
 
 ## Case Study #1 - Danny's Diner
 
+<p align="center">
+  <img height="300" src="https://github.com/gretapoc/8-Week-SQL-Challenge/blob/main/images/1.png">
+</p>
+
 ## Case Study #2 - Pizza Runner
 
 ## Case Study #3 - Foodie-Fi
