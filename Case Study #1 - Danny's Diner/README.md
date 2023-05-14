@@ -8,7 +8,7 @@
 
 ## Table of Contents
 
-- [Introduction]
+- [Introduction](#introduction)
 - [Problem Statement]
 - [Example Datasets]
 - [Entity Relationship Diagram]
