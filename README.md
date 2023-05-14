@@ -31,7 +31,7 @@ Danny wants to use the data to answer a few simple questions about his customers
 ### Entity Relationship Diagram
 
 <p align="center">
-  <img src="https://github.com/gretapoc/8-Week-SQL-Challenge/blob/main/images/1.png">
+  <img src="https://github.com/gretapoc/8-Week-SQL-Challenge/blob/main/images/diag1.PNG">
 </p>
 
 
