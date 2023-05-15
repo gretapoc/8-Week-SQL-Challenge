@@ -41,7 +41,7 @@ Danny has shared 3 key datasets for this case study:
 
 ## Case Study Questions And Answers
 
-**1. What is the total amount each customer spent at the restaurant?**
+### 1. What is the total amount each customer spent at the restaurant?
 
 **Solution:**
 
