@@ -61,8 +61,16 @@ ON s.product_id = m.product_id
 GROUP BY customer_id
 ORDER BY customer_id;
 ```
+
 **Answer:**
-Customer A spent $76$ $, customer B spent $74$ $, and customer C spent $36$ $ at the restaurant
+
+| customer_id | total_sales |
+| ----------- | ----------- |
+| A           | 76          |
+| B           | 74          |
+| C           | 36          |
+
+Customer A spent $76, customer B spent $74, and customer C spent $36 at the restaurant.
 
 **2. How many days has each customer visited the restaurant?**
 
