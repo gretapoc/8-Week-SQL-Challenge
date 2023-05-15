@@ -4,7 +4,7 @@ This project contains solutions for the [8 Week SQL Challenge](https://8weeksqlc
 
 # Case Studies
 
-- [Case Study #1 - Danny's Diner](#case-study-1---dannys-diner)
+- [Case Study #1 - Danny's Diner](https://github.com/gretapoc/8-Week-SQL-Challenge/tree/main/Case%20Study%20%231%20-%20Danny's%20Diner)
 - [Case Study #2 - Pizza Runner](#case-study-2---pizza-runner)
 - [Case Study #3 - Foodie-Fi](#case-study-3---foodie-fi)
 - [Case Study #4 - Data Bank](#case-study-4---data-bank)
