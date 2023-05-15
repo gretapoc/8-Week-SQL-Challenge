@@ -12,7 +12,7 @@
 - [Problem Statement](#problem-statement)
 - [Example Datasets](#example-datasets)
 - [Entity Relationship Diagram](#entity-relationship-diagram)
-- [Case Study Questions](#case-study-questions)
+- [Case Study Questions](#case-study-questions-and-answers)
 
 ## Introduction
 
@@ -39,18 +39,37 @@ Danny has shared 3 key datasets for this case study:
   <img src="https://github.com/gretapoc/8-Week-SQL-Challenge/blob/main/images/diag1.PNG">
 </p>
 
-## Case Study Questions
+## Case Study Questions And Answers
 
-1. What is the total amount each customer spent at the restaurant?
-2. How many days has each customer visited the restaurant?
-3. What was the first item from the menu purchased by each customer?
-4. What is the most purchased item on the menu and how many times was it purchased by all customers?
-5. Which item was the most popular for each customer?
-6. Which item was purchased first by the customer after they became a member?
-7. Which item was purchased just before the customer became a member?
-8. What is the total items and amount spent for each member before they became a member?
-9. If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?
-10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?
+**1. What is the total amount each customer spent at the restaurant?**
+
+- Selecting the `customer_id` and the sum of prices (`total_amount`) from the `sales` and `menu` tables.
+- Defining the tables aliases as 's' for `sales` and 'm' for `menu`.
+- Joining the `sales` and `menu` tables based on the `product_id` column.
+- Grouping the results by `customer_id`.
+- Ordering the results in ascending order based on `customer_id`.
+
+```sql
+SELECT 
+	customer_id, 
+	SUM(m.price) AS total_amount
+FROM sales AS s
+JOIN menu AS m
+ON s.product_id = m.product_id
+GROUP BY customer_id
+ORDER BY customer_id;
+```
+
+
+3. How many days has each customer visited the restaurant?
+4. What was the first item from the menu purchased by each customer?
+5. What is the most purchased item on the menu and how many times was it purchased by all customers?
+6. Which item was the most popular for each customer?
+7. Which item was purchased first by the customer after they became a member?
+8. Which item was purchased just before the customer became a member?
+9. What is the total items and amount spent for each member before they became a member?
+10. If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?
+11. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?
 
 
 
