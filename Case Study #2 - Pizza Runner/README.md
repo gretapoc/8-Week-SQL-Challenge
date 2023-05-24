@@ -59,26 +59,24 @@ Danny started by recruiting “runners” to deliver fresh pizza from Pizza Runn
 
 ## Problem Statement
 
-Danny wants to use the data to answer a few simple questions about his customers, especially about their visiting patterns, how much money they’ve spent and also which menu items are their favourite. 
-Having this deeper connection with his customers will help him deliver a better and more personalised experience for his loyal customers.
+Danny requires further assistance to clean his data and apply some basic calculations so he can better direct his runners and optimise Pizza Runner’s operations.
 
 ## Example Datasets
 
 Danny has shared 3 key datasets for this case study:
 
-- The `sales` table captures all `customer_id` level purchases with an corresponding `order_date` and `product_id` information for when and what menu items were ordered.
-- The `menu` table maps the `product_id` to the actual `product_name` and `price` of each menu item.
-- The final `members` table captures the `join_date` when a `customer_id` joined the beta version of the Danny’s Diner loyalty program.
+- The `runners` table shows the `registration_date` for each new runner.
+- The `customer_orders` table shows individual pizza orders made by customers with 1 row for each individual pizza that is part of the order, including the pizza type, excluded ingredients, and additional ingredients.
+- The `runner_orders` table shows the details of pizza orders assigned to runners, including pickup time, distance traveled, and duration of delivery, with potential data issues.
+- The `pizza_names` table shows the available pizza options.
+- The `pizza_recipes` table shows the standard set of toppings used as part of the pizza recipe for each pizza type.
+- The final `pizza_toppings` table shows the available topping names along with their corresponding topping ID values.
 
 ## Entity Relationship Diagram
 
 <p align="center">
-  <img src="https://github.com/gretapoc/8-Week-SQL-Challenge/blob/main/images/diag1.PNG">
+  <img src="https://github.com/gretapoc/8-Week-SQL-Challenge/blob/main/images/diag2.PNG">
 </p>
-
-
-
-
 
 ### A. Pizza Metrics
 
