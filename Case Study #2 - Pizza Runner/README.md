@@ -13,7 +13,6 @@
 - [Problem Statement](#problem-statement)
 - [Example Datasets](#example-datasets)
 - [Entity Relationship Diagram](#entity-relationship-diagram)
-- [Case Study Questions And Answers](#case-study-questions-and-answers)
 - [A. Pizza Metrics]()
   - [1. How many pizzas were ordered?]()
   - [2. How many unique customer orders were made?]()
@@ -37,28 +36,13 @@
   - [1. What are the standard ingredients for each pizza?]()
   - [2. What was the most commonly added extra?]()
   - [3. What was the most common exclusion?]()
-  - [4. Generate an order item for each record in the customers_orders table in the format of one of the following:
+  - [4. Generate an order item for each record in the customers_orders table in the format of one of the following]():
 	- Meat Lovers
 	- Meat Lovers - Exclude Beef
 	- Meat Lovers - Extra Bacon
-	- Meat Lovers - Exclude Cheese, Bacon - Extra Mushroom, Peppers]()
+	- Meat Lovers - Exclude Cheese, Bacon - Extra Mushroom, Peppers
   - [5. Generate an alphabetically ordered comma separated ingredient list for each pizza order from the customer_orders table and add a 2x in front of any relevant ingredients]()
   - [6. What is the total quantity of each ingredient used in all delivered pizzas sorted by most frequent first?]()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -91,15 +75,6 @@ Danny has shared 3 key datasets for this case study:
 
 
 
-## Case Study Questions And Answers
-
-This case study has LOTS of questions - they are broken up by area of focus including:
-
-- Pizza Metrics
-- Runner and Customer Experience
-- Ingredient Optimisation
-- Pricing and Ratings
-- Bonus DML Challenges (DML = Data Manipulation Language)
 
 ### A. Pizza Metrics
 
