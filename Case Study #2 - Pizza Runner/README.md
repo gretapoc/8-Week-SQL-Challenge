@@ -65,7 +65,7 @@ Danny requires further assistance to clean his data and apply some basic calcula
 
 Danny has shared 3 key datasets for this case study:
 
-- The `runners` table shows the `registration_date` for each new runner.
+- The `runners` table shows the registration date for each new runner.
 - The `customer_orders` table shows individual pizza orders made by customers with 1 row for each individual pizza that is part of the order, including the pizza type, excluded ingredients, and additional ingredients.
 - The `runner_orders` table shows the details of pizza orders assigned to runners, including pickup time, distance traveled, and duration of delivery, with potential data issues.
 - The `pizza_names` table shows the available pizza options.
