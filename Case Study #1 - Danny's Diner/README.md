@@ -56,7 +56,7 @@ Danny has shared 3 key datasets for this case study:
 **Solution:**
 
 - Selecting the `customer_id` and the sum of prices (`total_amount`) from the `sales` and `menu` tables.
-- Defining the tables aliases as 's' for `sales` and 'm' for `menu`.
+- Defining the tables aliases as `s` for `sales` and `m` for `menu`.
 - Joining the `sales` and `menu` tables based on the `product_id` column.
 - Grouping the results by `customer_id`.
 - Ordering the results in ascending order based on `customer_id`.
@@ -87,7 +87,7 @@ Customer A spent $76, customer B spent $74, and customer C spent $36 at the rest
 
 **Solution:**
 
-- Selecting the `customer_id` and counting the number of order dates (days visited) from the `sales` table.
+- Selecting the `customer_id` and counting the number of order dates (`days_visited`) from the `sales` table.
 - Grouping the results by `customer_id`.
 - Ordering the results in ascending order based on `customer_id`.
 
@@ -117,9 +117,11 @@ Customer A and B visited the restaurant 6 days each, customer C visited 3 days.
 **Solution:**
 
 - Selecting the `customer_id` and `product_name` from the `sales` and `menu` tables.
+- Defining the tables aliases as `s` for `sales` and `m` for `menu`.
 - Subquery to assign row numbers to each customer's purchases based on `order_date`.
-- Joining the subquery with the menu table based on the `product_id` column.
+- Joining the subquery with the `menu` table based on the `product_id` column.
 - Filtering the results to include only the first row for each customer.
+- Ordering the results in ascending order based on `customer_id`.
 
 ```sql
 SELECT s.customer_id, m.product_name
@@ -149,11 +151,11 @@ ORDER BY customer_id;
 
 **Solution:**
 
-- Selecting the top 1 row with the most purchased item and its count from the sales and menu tables.
-- From the sales table with an alias 's'.
-- Joining the sales and menu tables based on the product_id column.
-- Grouping the results by product_name.
-- Ordering the results in descending order based on the count of times_purchased.
+- Selecting the top 1 row with the most purchased item and its count from the `sales` and `menu` tables.
+- Defining the tables aliases as `s` for `sales` and `m` for `menu`.
+- Joining the `sales` and `menu` tables based on the `product_id` column.
+- Grouping the results by `product_name`.
+- Ordering the results in descending order based on the count of `times_purchased`.
 
 ```sql
 SELECT TOP(1) 
@@ -178,13 +180,13 @@ The most purchased item on the menu is ramen. It was purchased 8 times by all cu
 
 **Solution:**
 
-- Selecting the customer_id, product_name, and num_items from the nu subquery.
--  Creating a subquery named nu to calculate the count of each product purchased by each customer.
--  Subquery nu: calculates the count of each product purchased by each customer.
--  Joining the nu subquery with another subquery ma to determine the most popular item for each customer.
--  Subquery ma: determines the maximum count of items purchased by each customer.
--  Subquery nu: calculates the count of each product purchased by each customer.
--  Ordering the results in descending order based on num_items.
+- Selecting the `customer_id`, `product_name`, and `num_items` from the `nu` subquery.
+- Creating a subquery named `nu` to calculate the count of each product purchased by each customer.
+- Subquery `nu`: calculates the count of each product purchased by each customer.
+- Joining the `nu` subquery with another subquery `ma` to determine the most popular item for each customer.
+- Subquery `ma`: determines the maximum count of items purchased by each customer.
+- Subquery `nu`: calculates the count of each product purchased by each customer.
+- Ordering the results in descending order based on `num_items`.
 
 ```sql
 SELECT 
@@ -228,11 +230,11 @@ ORDER BY nu.num_items DESC;
 
 **Solution:**
 
-- Selecting the customer_id, order_date, and product_name (as first_item) from the fir subquery.
-- Subquery fir: assigns row numbers to each customer's purchases after becoming a member.
-- Joining the fir subquery with the menu table based on the product_id column.
+- Selecting the `customer_id`, `order_date`, and `product_name` (as `first_item`) from the `fir` subquery.
+- Subquery `fir`: assigns row numbers to each customer's purchases after becoming a member.
+- Joining the `fir` subquery with the `menu` table based on the `product_id` column.
 - Filtering the results to include only the first row for each customer.
-- Ordering the results in ascending order based on customer_id.
+- Ordering the results in ascending order based on `customer_id`.
 
 ```sql
 SELECT 
@@ -270,11 +272,11 @@ Customer A first purchased curry after becoming a member, and customer B first p
 
 **Solution:**
 
-- Selecting the customer_id, order_date, join_date, and product_name (as first_item).
-- Subquery fir: assigns row numbers to each customer's purchases just before becoming a member.
-- Joining the fir subquery with the menu table based on the product_id column.
+- Selecting the `customer_id`, `order_date`, `join_date`, and `product_name` (as `first_item`).
+- Subquery `fir`: assigns row numbers to each customer's purchases just before becoming a member.
+- Joining the `fir` subquery with the `menu` table based on the `product_id` column.
 - Filtering the results to include only the first row for each customer.
-- Ordering the results in ascending order based on customer_id.
+- Ordering the results in ascending order based on `customer_id`.
 
 ```sql
 SELECT 
@@ -315,10 +317,10 @@ Customer A purchased sushi and curry just before they became a member, customer 
 
 **Solution:**
 
-- Selecting the customer_id, count of product_id (as num_items), and sum of price (as total_sales)
-- Joining the sales, members, and menu tables
-- Filtering sales that occurred before the customer became a member
-- Grouping results by customer_id
+- Selecting the `customer_id`, count of `product_id` (as `num_items`), and sum of price (as `total_sales`).
+- Joining the `sales`, `members`, and `menu` tables.
+- Filtering sales that occurred before the customer became a member.
+- Grouping results by `customer_id`.
 
 ```sql
 SELECT 
@@ -348,9 +350,10 @@ Customer A purchased 2 items for a total of $25, and Customer B purchased 3 item
 
 **Solution:**
 
-- Selecting the customer_id and calculating the total points for each customer.
-- Joining the sales and menu tables based on the product_id column.
-- Grouping results by customer_id.
+- Selecting the `customer_id` and calculating the total points for each customer.
+- Joining the `sales` and `menu` tables based on the `product_id` column.
+- Grouping results by `customer_id`.
+- Ordering the results in ascending order based on `customer_id`.
 
 ```sql
 SELECT 
@@ -377,11 +380,11 @@ Customer A has 860 points, customer B has 940 points, and customer C has 360 poi
 
 **Solution:**
 
-- Selecting the customer_id and calculating the member_points for each customer.
-- Subquery p: retrieves relevant data for each sale before a specified date.
+- Selecting the `customer_id` and calculating the `member_points` for each customer.
+- Subquery `p`: retrieves relevant data for each sale before a specified date.
 - Filtering sales before a specified date.
-- Grouping the results by customer_id.
-- Ordering the results in ascending order based on customer_id.
+- Grouping the results by `customer_id`.
+- Ordering the results in ascending order based on `customer_id`.
 
 ```sql
 SELECT 
