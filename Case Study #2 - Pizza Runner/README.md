@@ -70,7 +70,7 @@
 	
 </details>
 <details>
-  <summary>[B. Runner and Customer Experience]()</summary>
+  -  <summary>[B. Runner and Customer Experience]()</summary>
   
   - [1. How many runners signed up for each 1 week period? (i.e. week starts 2021-01-01)]()
   - [2. What was the average time in minutes it took for each runner to arrive at the Pizza Runner HQ to pickup the order?]()
