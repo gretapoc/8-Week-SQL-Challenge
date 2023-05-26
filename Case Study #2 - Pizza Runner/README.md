@@ -15,7 +15,7 @@
 <details open>
   <summary>A. Pizza Metrics</summary>
   
-1. [How many pizzas were ordered?]()
+1. [How many pizzas were ordered?](#how-many-pizzas-were-ordered?)
 2. [How many unique customer orders were made?]()
 3. [How many successful orders were delivered by each runner?]()
 4. [How many of each type of pizza was delivered?]()
