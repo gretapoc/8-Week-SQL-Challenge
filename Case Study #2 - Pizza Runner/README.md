@@ -12,6 +12,7 @@
 - [Problem Statement](#problem-statement)
 - [Example Datasets](#example-datasets)
 - [Entity Relationship Diagram](#entity-relationship-diagram)
+- [Data Cleaning and Transformation](#data-cleaning-and-transformation)
 <details open>
   <summary>A. Pizza Metrics</summary>
   
@@ -87,6 +88,9 @@ Danny has shared 3 key datasets for this case study:
 <p align="center">
   <img src="https://github.com/gretapoc/8-Week-SQL-Challenge/blob/main/images/diag2.PNG">
 </p>
+
+
+## Data Cleaning and Transformation
 
 ### A. Pizza Metrics
 
