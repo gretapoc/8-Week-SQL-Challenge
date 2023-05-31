@@ -318,7 +318,7 @@ GROUP BY runner_id;
 
 - Runner 1 delivered 4 successful orders.
 - Runner 2 delivered 3 successful orders.
-- Runner 3 delivered 1 successful orders.
+- Runner 3 delivered 1 successful order.
 
 
 #### 4. How many of each type of pizza was delivered?
