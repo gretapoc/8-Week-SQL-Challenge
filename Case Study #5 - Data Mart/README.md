@@ -52,5 +52,5 @@ Danny has shared 3 key datasets for this case study:
 ## Entity Relationship Diagram
 
 <p align="center">
-  <img src="https://github.com/gretapoc/8-Week-SQL-Challenge/blob/main/images/diag1.PNG">
+  <img src="https://github.com/gretapoc/8-Week-SQL-Challenge/blob/main/images/diag5.PNG">
 </p>
