@@ -92,6 +92,156 @@ Danny has shared 3 key datasets for this case study:
 
 ## Data Cleaning and Transformation
 
+Let's examine the `customer_orders` table and observe that there are some missing and 'null' values present in the `exclusions` and `extras` columns. In order to ensure data cleanliness and consistency, we will proceed with the necessary steps to clean and refine the table.
+
+```sql
+SELECT *
+FROM customer_orders;
+```
+
+| order_id | customer_id | pizza_id | exclusions | extras | order_time             |
+| -------- | ----------- | -------- | ---------- | ------ | ---------------------- |
+| 1	   | 101	 | 1	    | 		 |        |2020-01-01 18:05:02.000 | 
+| 2	   | 101	 | 1	    | 		 |        |2020-01-01 19:00:52.000 | 
+| 3	   | 102	 | 1	    | 	         |        |2020-01-02 23:51:23.000 | 
+| 3	   | 102 	 | 2	    | 	 	 | NULL   |2020-01-02 23:51:23.000 | 
+| 4	   | 103	 | 1	    | 4		 |        |2020-01-04 13:23:46.000 | 
+| 4	   | 103	 | 1	    | 4		 |        |2020-01-04 13:23:46.000 | 
+| 4	   | 103	 | 2	    | 4		 |        |2020-01-04 13:23:46.000 | 
+| 5	   | 104	 | 1	    | null       | 1	  |2020-01-08 21:00:29.000 | 
+| 6	   | 101 	 | 2	    | null 	 | null   |2020-01-08 21:03:13.000 | 
+| 7	   | 105	 | 2	    | null       | 1      |2020-01-08 21:20:29.000 | 
+| 8	   | 102	 | 1	    | null 	 | null   |2020-01-09 23:54:33.000 | 
+| 9	   | 103	 | 1	    | 4	         | 1, 5	  |2020-01-10 11:22:59.000 | 
+| 10	   | 104	 | 1	    | null 	 | null   |2020-01-11 18:34:49.000 | 
+| 10	   | 104	 | 1        | 2, 6	 | 1, 4	  |2020-01-11 18:34:49.000 | 
+
+**Solution:**
+
+- Check if a table called "temp_customer_orders" exists and drop it if it does.
+- Select specific columns: order_id, customer_id, pizza_id, exclusions, extras, and order_time.
+- Replace 'null' values in the exclusions column with an empty string.
+- Replace 'null' values in the extras column with an empty string.
+- Store the result into a temporary table called temp_customer_orders.
+- Retrieve all the rows from the temp_customer_orders table.
+
+```sql
+DROP TABLE IF EXISTS temp_customer_orders
+SELECT 
+	order_id,
+	customer_id,
+	pizza_id,
+	COALESCE(NULLIF(exclusions, 'null'), '') AS exclusions,
+	COALESCE(NULLIF(extras, 'null'), '') AS extras,
+	order_time
+INTO temp_customer_orders
+FROM customer_orders;
+
+SELECT * 
+FROM temp_customer_orders;
+```
+
+**Answer:**
+
+| order_id | customer_id | pizza_id | exclusions | extras | order_time             |
+| -------- | ----------- | -------- | ---------- | ------ | ---------------------- |
+| 1	   | 101	 | 1	    | 		 |        |2020-01-01 18:05:02.000 | 
+| 2	   | 101	 | 1	    | 		 |        |2020-01-01 19:00:52.000 | 
+| 3	   | 102	 | 1	    | 	         |        |2020-01-02 23:51:23.000 | 
+| 3	   | 102 	 | 2	    | 	 	 |        |2020-01-02 23:51:23.000 | 
+| 4	   | 103	 | 1	    | 4		 |        |2020-01-04 13:23:46.000 | 
+| 4	   | 103	 | 1	    | 4		 |        |2020-01-04 13:23:46.000 | 
+| 4	   | 103	 | 2	    | 4		 |        |2020-01-04 13:23:46.000 | 
+| 5	   | 104	 | 1	    |  	         | 1	  |2020-01-08 21:00:29.000 | 
+| 6	   | 101 	 | 2	    |  	 	 |        |2020-01-08 21:03:13.000 | 
+| 7	   | 105	 | 2	    |  	         | 1      |2020-01-08 21:20:29.000 | 
+| 8	   | 102	 | 1	    |  	 	 |        |2020-01-09 23:54:33.000 | 
+| 9	   | 103	 | 1	    | 4	         | 1, 5	  |2020-01-10 11:22:59.000 | 
+| 10	   | 104	 | 1	    |  	 	 |        |2020-01-11 18:34:49.000 | 
+| 10	   | 104	 | 1        | 2, 6	 | 1, 4	  |2020-01-11 18:34:49.000 | 
+
+
+Let's review the `runner_orders` table and observe that there are some instances where the `pickup_time`, `distance`, and `duration` columns have 'null' values. Additionally, we can identify missing or 'null' values in the `cancellation` column. Also, the `distance` and `duration` columns contain extra text (e.g., 'km', 'minutes') that needs to be removed. In order to ensure data cleanliness and consistency, we will proceed with the necessary steps to clean and refine the table.
+
+```sql
+SELECT *
+FROM customer_orders;
+```
+
+| order_id | runner_id   | pickup_time          | distance   | duration   | cancellation            |
+| -------- | ----------- | -------------------- | ---------- | ---------- | ----------------------- |
+| 1        | 1           | 2020-01-01 18:15:34  | 20km       | 32 minutes |                         |
+| 2	   | 1	         | 2020-01-01 19:10:54	| 20km	     | 27 minutes |                         |
+| 3	   | 1	         | 2020-01-03 00:12:37	| 13.4km     | 20 mins    | NULL                    |
+| 4	   | 2   	 | 2020-01-04 13:53:03	| 23.4	     | 40	  | NULL                    |
+| 5	   | 3	         | 2020-01-08 21:10:57	| 10	     | 15	  | NULL                    |
+| 6	   | 3	         | null	 	 	| null       | null       | Restaurant Cancellation |
+| 7	   | 2	         | 2020-01-08 21:30:45	| 25km	     | 25mins	  | null                    |
+| 8	   | 2	         | 2020-01-10 00:15:02	| 23.4 km    | 15 minute  | null                    |
+| 9	   | 2	         | null	 	 	| null       | null       | Customer Cancellation   |
+| 10	   | 1	         | 2020-01-11 18:50:20	| 10km	     | 10minutes  | null                    |
+
+**Solution:**
+
+- Check if a table called "temp_runner_orders" exists and drop it if it does.
+- Select specific columns: order_id, runner_id, pickup_time, distance, duration, and cancellation.
+- Replace 'null' values in the pickup_time column with an empty string.
+- For the distance column, if the value is 'null', replace it with an empty string. Otherwise, remove the 'km' unit from the value if present, and replace 'null' values with an empty string.
+- For the duration column, if the value is 'null', replace it with an empty string. Otherwise, remove the 'mins', 'minutes', and 'minute' units from the value if present, and replace 'null' values with an empty string.
+- Replace 'null' values in the cancellation column with an empty string.
+- Store the result into a temporary table called temp_runner_orders.
+- Alter the pickup_time column in the temporary table to have the DATETIME data type.
+- Alter the distance column in the temporary table to have the FLOAT data type.
+- Alter the duration column in the temporary table to have the INT data type.
+- Retrieve all the rows from the temp_runner_orders table.
+
+```sql
+DROP TABLE IF EXISTS temp_runner_orders
+SELECT
+	order_id,
+	runner_id,
+	COALESCE(NULLIF(pickup_time, 'null'), '') AS pickup_time,
+	CASE
+		WHEN distance = 'null' THEN ' '
+		ELSE COALESCE(NULLIF(REPLACE(distance, 'km', ''), 'null'), distance)
+	END AS distance,
+	CASE
+		WHEN duration = 'null' THEN ' '
+		ELSE COALESCE(NULLIF(REPLACE(REPLACE(REPLACE(duration, 'mins', ''), 'minutes', ''), 'minute', ''), 'null'), duration)
+	END AS duration,
+	COALESCE(NULLIF(cancellation, 'null'), '') AS cancellation
+INTO temp_runner_orders
+FROM runner_orders;
+
+ALTER TABLE temp_runner_orders
+ALTER COLUMN pickup_time DATETIME;
+
+ALTER TABLE temp_runner_orders
+ALTER COLUMN distance FLOAT;
+
+ALTER TABLE temp_runner_orders
+ALTER COLUMN duration INT;
+
+SELECT *
+FROM temp_runner_orders;
+```
+
+**Answer:**
+
+| order_id | runner_id   | pickup_time          | distance   | duration | cancellation            |
+| -------- | ----------- | -------------------- | ---------- | -------- | ----------------------- |
+| 1        | 1           | 2020-01-01 18:15:34  | 20         | 32       |                         |
+| 2	   | 1	         | 2020-01-01 19:10:54	| 20	     | 27       |                         |
+| 3	   | 1	         | 2020-01-03 00:12:37	| 13.4	     | 20 	|                         |
+| 4	   | 2   	 | 2020-01-04 13:53:03	| 23.4	     | 40	|                         |
+| 5	   | 3	         | 2020-01-08 21:10:57	| 10	     | 15	|                         |
+| 6	   | 3	         | 	 	 	|            |          | Restaurant Cancellation |
+| 7	   | 2	         | 2020-01-08 21:30:45	| 25	     | 25	|                         |
+| 8	   | 2	         | 2020-01-10 00:15:02	| 23.4 	     | 15 	|                         |
+| 9	   | 2	         | 	 	 	|            |          | Customer Cancellation   |
+| 10	   | 1	         | 2020-01-11 18:50:20	| 10	     | 10	|                         |
+
+
 ### A. Pizza Metrics
 
 
@@ -99,47 +249,198 @@ Danny has shared 3 key datasets for this case study:
 
 **Solution:**
 
+- Count the occurrences of the pizza_id column.
+- Return the count as total_pizzas.
+
+```sql
+SELECT 
+	COUNT(pizza_id) AS total_pizzas
+FROM temp_customer_orders;
+```
+
 **Answer:**
+
+| total_pizzas |
+| ------------ |
+| 14           |
+
+Total of 14 pizzas were ordered.
 
 
 #### 2. How many unique customer orders were made?
 
 **Solution:**
 
+- Count the number of distinct order_id values in the temp_customer_orders table.
+- Assign the count as unique_orders.
+
+```sql
+SELECT 
+	COUNT(DISTINCT order_id) AS unique_orders
+FROM temp_customer_orders;
+```
+
 **Answer:**
+
+| customer_orders |
+| --------------- |
+| 10              |
+
+The number of unique customer orders made is 10.
 
 
 #### 3. How many successful orders were delivered by each runner?
 
 **Solution:**
 
+- Retrieve the runner_id column from the temp_runner_orders table.
+- Count the occurrences of each unique runner_id.
+- Assign the count of each runner_id as successful_orders.
+- Filter the results by excluding rows where pickup_time is equal to 0.
+- Group the results by runner_id.
+
+```sql
+SELECT 
+	runner_id,
+	COUNT(runner_id) AS successful_orders
+FROM temp_runner_orders
+WHERE pickup_time <> 0
+GROUP BY runner_id;
+```
+
 **Answer:**
+
+| runner_id | successful_orders |
+| --------- | ----------------- |
+| 1         | 4                 |
+| 2         | 3                 |
+| 3         | 1                 |
+
+- Runner 1 delivered 4 successful orders.
+- Runner 2 delivered 3 successful orders.
+- Runner 3 delivered 1 successful orders.
 
 
 #### 4. How many of each type of pizza was delivered?
 
 **Solution:**
 
+- Retrieve the pizza_id column from the temp_customer_orders table (aliased as c).
+- Count the occurrences of each unique pizza_id.
+- Assign the count of each pizza_id as total_delivered.
+- Join the temp_customer_orders table (aliased as c) with the temp_runner_orders table (aliased as r) using the order_id column as the join condition.
+- Filter the results by excluding rows where pickup_time in the temp_runner_orders table is equal to 0.
+- Group the results by pizza_id.
+
+```sql
+SELECT 
+	c.pizza_id,
+	COUNT(c.pizza_id) AS total_delivered
+FROM temp_customer_orders AS c
+JOIN temp_runner_orders AS r
+ON c.order_id = r.order_id
+WHERE r.pickup_time <> 0
+GROUP BY c.pizza_id;
+```
+
 **Answer:**
+
+| pizza_id | total_delivered |
+| -------- | --------------- |
+| 1        | 9               |
+| 2        | 3               |
+
+- Pizza with ID 1 was delivered 9 times.
+- Pizza with ID 2 was delivered 3 times.
 
 
 #### 5. How many Vegetarian and Meatlovers were ordered by each customer?
 
+- Retrieve the customer_id and pizza_id columns, as well as the count of each pizza_id for each customer_id, from the temp_customer_orders table.
+- Group the results by customer_id and pizza_id, and assign the count as order_count.
+- Alias the subquery as "c".
+- Join the pizza_names table (aliased as p) with the subquery "c" using the pizza_id column as the join condition.
+- Select the customer_id, pizza_name from the pizza_names table, and order_count from the subquery "c".
+- Order the results by customer_id.
+
 **Solution:**
 
+```sql
+SELECT 
+	c.customer_id,
+	p.pizza_name,
+	c.order_count
+FROM pizza_names AS p
+JOIN (
+	SELECT 
+		customer_id, 
+		pizza_id,
+		COUNT(pizza_id) AS order_count
+	FROM temp_customer_orders
+	GROUP BY customer_id, pizza_id) AS c
+ON p.pizza_id = c.pizza_id
+ORDER BY customer_id;
+```
+
 **Answer:**
+
+| customer_id | pizza_name    | order_count |
+| ----------- | ------------- | ----------- |
+| 101         | Meatlovers    | 2           |
+| 101         | Vegetarian    | 1           |
+| 102         | Meatlovers    | 2           |
+| 102         | Vegetarian    | 1           |
+| 103         | Meatlovers    | 3           |
+| 103         | Vegetarian    | 1           |
+| 104         | Meatlovers    | 3           |
+| 105         | Vegetarian    | 1           |
+
+- Customer 102 ordered 1 Vegetarian pizza and 2 Meatlovers pizzas.
+- Customer 103 ordered 1 Vegetarian pizza and 3 Meatlovers pizzas.
+- Customer 104 ordered 3 Meatlovers pizzas.
+- Customer 105 ordered 1 Vegetarian pizza.
 
 
 #### 6. What was the maximum number of pizzas delivered in a single order?
 
 **Solution:**
 
+- Retrieve the top 1 row from the result set.
+- Select the order_id and count of pizzas delivered, aliased as "pizzas_delivered", from the temp_customer_orders table, aliased as "c".
+- Join the temp_customer_orders table with the temp_runner_orders table, aliased as "r", using the order_id column as the join condition.
+- Exclude rows where the pickup_time in the temp_runner_orders table is equal to 0.
+- Group the results by the order_id.
+- Order the results by the count of pizzas delivered in descending order.
+
+```sql
+SELECT
+	TOP(1)
+	c.order_id,
+	COUNT(c.order_id) AS pizzas_delivered
+FROM temp_customer_orders AS c
+JOIN temp_runner_orders AS r
+ON c.order_id = r.order_id
+WHERE r.pickup_time <> 0
+GROUP BY c.order_id
+ORDER BY COUNT(c.order_id) DESC;
+```
+
 **Answer:**
 
+| order_id | pizzas_delivered |
+| -------- | ---------------- |
+| 4        | 3                |
+
+The maximum number of pizzas delivered in a single order was 3.
 
 #### 7. For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
 
 **Solution:**
+
+```sql
+
+
+```
 
 **Answer:**
 
@@ -148,6 +449,11 @@ Danny has shared 3 key datasets for this case study:
 
 **Solution:**
 
+```sql
+
+
+```
+
 **Answer:**
 
 
@@ -155,12 +461,22 @@ Danny has shared 3 key datasets for this case study:
 
 **Solution:**
 
+```sql
+
+
+```
+
 **Answer:**
 
 
 #### 10. What was the volume of orders for each day of the week?
 
 **Solution:**
+
+```sql
+
+
+```
 
 **Answer:**
 
@@ -171,12 +487,22 @@ Danny has shared 3 key datasets for this case study:
 
 **Solution:**
 
+```sql
+
+
+```
+
 **Answer:**
 
 
 #### 2. What was the average time in minutes it took for each runner to arrive at the Pizza Runner HQ to pickup the order?
 
 **Solution:**
+
+```sql
+
+
+```
 
 **Answer:**
 
@@ -185,12 +511,22 @@ Danny has shared 3 key datasets for this case study:
 
 **Solution:**
 
+```sql
+
+
+```
+
 **Answer:**
 
 
 #### 4. What was the average distance travelled for each customer?
 
 **Solution:**
+
+```sql
+
+
+```
 
 **Answer:**
 
@@ -199,6 +535,11 @@ Danny has shared 3 key datasets for this case study:
 
 **Solution:**
 
+```sql
+
+
+```
+
 **Answer:**
 
 
@@ -206,12 +547,22 @@ Danny has shared 3 key datasets for this case study:
 
 **Solution:**
 
+```sql
+
+
+```
+
 **Answer:**
 
 
 #### 7. What is the successful delivery percentage for each runner?
 
 **Solution:**
+
+```sql
+
+
+```
 
 **Answer:**
 
@@ -222,12 +573,22 @@ Danny has shared 3 key datasets for this case study:
 
 **Solution:**
 
+```sql
+
+
+```
+
 **Answer:**
 
 
 #### 2. What was the most commonly added extra?
 
 **Solution:**
+
+```sql
+
+
+```
 
 **Answer:**
 
@@ -236,12 +597,22 @@ Danny has shared 3 key datasets for this case study:
 
 **Solution:**
 
+```sql
+
+
+```
+
 **Answer:**
 
 
 #### 4. Generate an order item for each record in the customers_orders table in the format of one of the following: Meat Lovers, Meat Lovers - Exclude Beef, Meat Lovers - Extra Bacon, Meat Lovers - Exclude Cheese, Bacon - Extra Mushroom, Peppers.
 
 **Solution:**
+
+```sql
+
+
+```
 
 **Answer:**
 
@@ -250,12 +621,22 @@ Danny has shared 3 key datasets for this case study:
 
 **Solution:**
 
+```sql
+
+
+```
+
 **Answer:**
 
 
 #### 6. What is the total quantity of each ingredient used in all delivered pizzas sorted by most frequent first?
 
 **Solution:**
+
+```sql
+
+
+```
 
 **Answer:**
 
@@ -266,12 +647,22 @@ Danny has shared 3 key datasets for this case study:
 
 **Solution:**
 
+```sql
+
+
+```
+
 **Answer:**
 
 
 #### 2. What if there was an additional $1 charge for any pizza extras?
 
 **Solution:**
+
+```sql
+
+
+```
 
 **Answer:**
 
@@ -280,6 +671,11 @@ Danny has shared 3 key datasets for this case study:
 
 **Solution:**
 
+```sql
+
+
+```
+
 **Answer:**
 
 
@@ -287,12 +683,22 @@ Danny has shared 3 key datasets for this case study:
 
 **Solution:**
 
+```sql
+
+
+```
+
 **Answer:**
 
 
 #### 5. If a Meat Lovers pizza was $12 and Vegetarian $10 fixed prices with no cost for extras and each runner is paid $0.30 per kilometre traveled - how much money does Pizza Runner have left over after these deliveries?
 
 **Solution:**
+
+```sql
+
+
+```
 
 **Answer:**
 
