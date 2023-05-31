@@ -567,12 +567,32 @@ There were 5 orders on both Friday and Monday, 3 orders on Saturday, and 1 order
 
 **Solution:**
 
+- Set the starting day of the week to Monday using the SET DATEFIRST 1 statement.
+- Retrieve the week number from the registration_date column using the DATEPART(WEEK, registration_date) function and alias it as "week_number".
+- Count the number of runners for each week number and alias it as "total_runners".
+- From the runners table, select the week_number and total_runners.
+- Group the results by the week_number.
+- Order the results by the week_number.
+
 ```sql
-
-
+SET DATEFIRST 1
+SELECT
+    DATEPART(WEEK, registration_date) AS week_number,
+    COUNT(*) AS total_runners
+FROM runners
+GROUP BY DATEPART(WEEK, registration_date)
+ORDER BY week_number;
 ```
 
 **Answer:**
+
+| week_number | total_runners |
+| ----------- | ------------- |
+| 1           | 2             |
+| 2           | 1             |
+| 3           | 1             |
+
+In the first week, two runners signed up, in the second week one runner signed up, and in the third week one runner signed up.
 
 
 #### 2. What was the average time in minutes it took for each runner to arrive at the Pizza Runner HQ to pickup the order?
