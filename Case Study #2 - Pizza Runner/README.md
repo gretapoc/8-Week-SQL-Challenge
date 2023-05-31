@@ -437,48 +437,128 @@ The maximum number of pizzas delivered in a single order was 3.
 
 **Solution:**
 
+- Retrieve the customer_id column.
+- Count the number of customer_id values where either exclusions or extras are not empty (not equal to ' ') and pickup_time is not equal to 0. Alias this count as "with_changes".
+- Count the number of customer_id values where both exclusions and extras are empty (equal to ' ') and pickup_time is not equal to 0. Alias this count as "without_changes".
+- From the temp_customer_orders table, aliased as "c", join the temp_runner_orders table, aliased as "r", using the order_id column as the join condition.
+- Group the results by the customer_id.
+- Order the results by the customer_id.
+
 ```sql
-
-
+SELECT
+	customer_id,
+	COUNT(CASE WHEN (exclusions != ' ' OR extras != ' ') AND pickup_time <> 0 THEN customer_id END) AS with_changes,
+	COUNT(CASE WHEN (exclusions = ' ' AND extras = ' ') AND pickup_time <> 0 THEN customer_id END) AS without_changes
+FROM temp_customer_orders AS c
+JOIN temp_runner_orders AS r
+ON c.order_id = r.order_id
+GROUP BY customer_id
+ORDER BY customer_id;
 ```
 
 **Answer:**
+
+| customer_id | with_changes | without_changes | 
+| ----------- | ------------ | --------------- |
+| 101         | 0            | 2               |
+| 102         | 0            | 3               |
+| 103         | 3            | 0               |
+| 104         | 2            | 1               |
+| 105         | 1            | 0               |
+
+- Customer 101 had 0 pizzas with changes and 2 pizzas with no changes.
+- Customer 102 had 0 pizzas with changes and 3 pizzas with no changes.
+- Customer 103 had 3 pizzas with changes and 0 pizzas with no changes.
+- Customer 104 had 2 pizzas with changes and 1 pizza with no changes.
+- Customer 105 had 1 pizza with changes and 0 pizzas with no changes.
 
 
 #### 8. How many pizzas were delivered that had both exclusions and extras?
 
 **Solution:**
 
+- Count the number of order_id values where both exclusions and extras are not empty (not equal to ' ') and pickup_time is not equal to 0. Alias this count as "both_changes".
+- From the temp_customer_orders table, aliased as "c", join the temp_runner_orders table, aliased as "r", using the order_id column as the join condition.
+- Only consider the rows where both exclusions and extras are not empty and pickup_time is not equal to 0.
+- Count the number of rows that satisfy the condition and alias it as "both_changes".
+
 ```sql
-
-
+SELECT 
+	COUNT(CASE WHEN exclusions != ' ' AND extras != ' ' AND pickup_time <> 0 THEN c.order_id END) AS both_changes
+FROM temp_customer_orders AS c
+JOIN temp_runner_orders AS r
+ON c.order_id = r.order_id;
 ```
 
 **Answer:**
+
+| both_changes |
+| ------------ |
+| 1            |
+
+The number of pizzas delivered that had both exclusions and extras is 1.
 
 
 #### 9. What was the total volume of pizzas ordered for each hour of the day?
 
 **Solution:**
 
+- Extract the hour of the day from the order_time column using DATEPART(HOUR, order_time).
+- Count the number of rows for each hour and name it "total_pizzas".
+- Group the results by the hour of the day using GROUP BY DATEPART(HOUR, order_time).
+
 ```sql
-
-
+SELECT 
+	DATEPART(HOUR, order_time) AS hour_of_day,
+	COUNT(*) AS total_pizzas
+FROM temp_customer_orders
+GROUP BY DATEPART(HOUR, order_time);
 ```
 
 **Answer:**
 
+| hour_of_day | total_pizzas |
+| ----------- | ------------ |
+| 11          | 1            |
+| 13          | 3            |
+| 18          | 3            |
+| 19          | 1            |
+| 21          | 3            |
+| 23          | 3            |
+
+- At 11:00, 1 pizza was ordered.
+- At 13:00, 3 pizzas were ordered.
+- At 18:00, 3 pizzas were ordered.
+- At 19:00, 1 pizza was ordered.
+- At 21:00, 3 pizzas were ordered.
+- At 23:00, 3 pizzas were ordered.
 
 #### 10. What was the volume of orders for each day of the week?
 
 **Solution:**
 
+- Retrieve the day of the week from the order_time column using DATENAME(WEEKDAY, order_time).
+- Count the number of rows for each day of the week and name it "total_orders".
+- Group the results by the day of the week using GROUP BY DATENAME(WEEKDAY, order_time).
+
 ```sql
-
-
+SELECT 
+	DATENAME(WEEKDAY, order_time) AS day_of_week,
+	COUNT(*) AS total_orders
+FROM temp_customer_orders
+GROUP BY DATENAME(WEEKDAY, order_time);
 ```
 
 **Answer:**
+
+| day_of_week | total_orders | 
+| ----------- | ------------ |
+| Friday      | 5            |
+| Monday      | 5            |
+| Saturday    | 3            |
+| Sunday      | 1            |
+
+There were 5 orders on both Friday and Monday, 3 orders on Saturday, and 1 order on Sunday.
 
 
 ### B. Runner and Customer Experience
