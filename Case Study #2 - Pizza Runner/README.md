@@ -242,10 +242,10 @@ FROM temp_runner_orders;
 | 10	   | 1	         | 2020-01-11 18:50:20	| 10	     | 10	|                         |
 
 
-### A. Pizza Metrics
+## A. Pizza Metrics
 
 
-#### 1. How many pizzas were ordered?
+### 1. How many pizzas were ordered?
 
 **Solution:**
 
@@ -267,7 +267,7 @@ FROM temp_customer_orders;
 Total of 14 pizzas were ordered.
 
 
-#### 2. How many unique customer orders were made?
+### 2. How many unique customer orders were made?
 
 **Solution:**
 
@@ -289,7 +289,7 @@ FROM temp_customer_orders;
 The number of unique customer orders made is 10.
 
 
-#### 3. How many successful orders were delivered by each runner?
+### 3. How many successful orders were delivered by each runner?
 
 **Solution:**
 
@@ -321,7 +321,7 @@ GROUP BY runner_id;
 - Runner 3 delivered 1 successful order.
 
 
-#### 4. How many of each type of pizza was delivered?
+### 4. How many of each type of pizza was delivered?
 
 **Solution:**
 
@@ -354,7 +354,7 @@ GROUP BY c.pizza_id;
 - Pizza with ID 2 was delivered 3 times.
 
 
-#### 5. How many Vegetarian and Meatlovers were ordered by each customer?
+### 5. How many Vegetarian and Meatlovers were ordered by each customer?
 
 - Retrieve the customer_id and pizza_id columns, as well as the count of each pizza_id for each customer_id, from the temp_customer_orders table.
 - Group the results by customer_id and pizza_id, and assign the count as order_count.
@@ -401,7 +401,7 @@ ORDER BY customer_id;
 - Customer 105 ordered 1 Vegetarian pizza.
 
 
-#### 6. What was the maximum number of pizzas delivered in a single order?
+### 6. What was the maximum number of pizzas delivered in a single order?
 
 **Solution:**
 
@@ -433,7 +433,7 @@ ORDER BY COUNT(c.order_id) DESC;
 
 The maximum number of pizzas delivered in a single order was 3.
 
-#### 7. For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
+### 7. For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
 
 **Solution:**
 
@@ -473,7 +473,7 @@ ORDER BY customer_id;
 - Customer 105 had 1 pizza with changes and 0 pizzas with no changes.
 
 
-#### 8. How many pizzas were delivered that had both exclusions and extras?
+### 8. How many pizzas were delivered that had both exclusions and extras?
 
 **Solution:**
 
@@ -499,7 +499,7 @@ ON c.order_id = r.order_id;
 The number of pizzas delivered that had both exclusions and extras is 1.
 
 
-#### 9. What was the total volume of pizzas ordered for each hour of the day?
+### 9. What was the total volume of pizzas ordered for each hour of the day?
 
 **Solution:**
 
@@ -533,7 +533,7 @@ GROUP BY DATEPART(HOUR, order_time);
 - At 21:00, 3 pizzas were ordered.
 - At 23:00, 3 pizzas were ordered.
 
-#### 10. What was the volume of orders for each day of the week?
+### 10. What was the volume of orders for each day of the week?
 
 **Solution:**
 
@@ -561,9 +561,9 @@ GROUP BY DATENAME(WEEKDAY, order_time);
 There were 5 orders on both Friday and Monday, 3 orders on Saturday, and 1 order on Sunday.
 
 
-### B. Runner and Customer Experience
+## B. Runner and Customer Experience
   
-#### 1. How many runners signed up for each 1 week period?
+### 1. How many runners signed up for each 1 week period?
 
 **Solution:**
 
@@ -595,7 +595,7 @@ ORDER BY week_number;
 In the first week, two runners signed up, in the second week one runner signed up, and in the third week one runner signed up.
 
 
-#### 2. What was the average time in minutes it took for each runner to arrive at the Pizza Runner HQ to pickup the order?
+### 2. What was the average time in minutes it took for each runner to arrive at the Pizza Runner HQ to pickup the order?
 
 **Solution:**
 
@@ -607,7 +607,7 @@ In the first week, two runners signed up, in the second week one runner signed u
 **Answer:**
 
 
-#### 3. Is there any relationship between the number of pizzas and how long the order takes to prepare?
+### 3. Is there any relationship between the number of pizzas and how long the order takes to prepare?
 
 **Solution:**
 
@@ -619,7 +619,7 @@ In the first week, two runners signed up, in the second week one runner signed u
 **Answer:**
 
 
-#### 4. What was the average distance travelled for each customer?
+### 4. What was the average distance travelled for each customer?
 
 **Solution:**
 
@@ -631,7 +631,7 @@ In the first week, two runners signed up, in the second week one runner signed u
 **Answer:**
 
 
-#### 5. What was the difference between the longest and shortest delivery times for all orders?
+### 5. What was the difference between the longest and shortest delivery times for all orders?
 
 **Solution:**
 
@@ -643,7 +643,7 @@ In the first week, two runners signed up, in the second week one runner signed u
 **Answer:**
 
 
-#### 6. What was the average speed for each runner for each delivery and do you notice any trend for these values?
+### 6. What was the average speed for each runner for each delivery and do you notice any trend for these values?
 
 **Solution:**
 
@@ -655,7 +655,7 @@ In the first week, two runners signed up, in the second week one runner signed u
 **Answer:**
 
 
-#### 7. What is the successful delivery percentage for each runner?
+### 7. What is the successful delivery percentage for each runner?
 
 **Solution:**
 
@@ -667,9 +667,9 @@ In the first week, two runners signed up, in the second week one runner signed u
 **Answer:**
 
 
-### C. Ingredient Optimisation
+## C. Ingredient Optimisation
   
-#### 1. What are the standard ingredients for each pizza?
+### 1. What are the standard ingredients for each pizza?
 
 **Solution:**
 
@@ -681,7 +681,7 @@ In the first week, two runners signed up, in the second week one runner signed u
 **Answer:**
 
 
-#### 2. What was the most commonly added extra?
+### 2. What was the most commonly added extra?
 
 **Solution:**
 
@@ -693,7 +693,7 @@ In the first week, two runners signed up, in the second week one runner signed u
 **Answer:**
 
 
-#### 3. What was the most common exclusion?
+### 3. What was the most common exclusion?
 
 **Solution:**
 
@@ -705,7 +705,7 @@ In the first week, two runners signed up, in the second week one runner signed u
 **Answer:**
 
 
-#### 4. Generate an order item for each record in the customers_orders table in the format of one of the following: Meat Lovers, Meat Lovers - Exclude Beef, Meat Lovers - Extra Bacon, Meat Lovers - Exclude Cheese, Bacon - Extra Mushroom, Peppers.
+### 4. Generate an order item for each record in the customers_orders table in the format of one of the following: Meat Lovers, Meat Lovers - Exclude Beef, Meat Lovers - Extra Bacon, Meat Lovers - Exclude Cheese, Bacon - Extra Mushroom, Peppers.
 
 **Solution:**
 
@@ -717,7 +717,7 @@ In the first week, two runners signed up, in the second week one runner signed u
 **Answer:**
 
 
-#### 5. Generate an alphabetically ordered comma separated ingredient list for each pizza order from the customer_orders table and add a 2x in front of any relevant ingredients.
+### 5. Generate an alphabetically ordered comma separated ingredient list for each pizza order from the customer_orders table and add a 2x in front of any relevant ingredients.
 
 **Solution:**
 
@@ -729,7 +729,7 @@ In the first week, two runners signed up, in the second week one runner signed u
 **Answer:**
 
 
-#### 6. What is the total quantity of each ingredient used in all delivered pizzas sorted by most frequent first?
+### 6. What is the total quantity of each ingredient used in all delivered pizzas sorted by most frequent first?
 
 **Solution:**
 
@@ -741,9 +741,9 @@ In the first week, two runners signed up, in the second week one runner signed u
 **Answer:**
 
 	
-### D. Pricing and Ratings
+## D. Pricing and Ratings
   
-#### 1. If a Meat Lovers pizza costs $12 and Vegetarian costs $10 and there were no charges for changes - how much money has Pizza Runner made so far if there are no delivery fees?
+### 1. If a Meat Lovers pizza costs $12 and Vegetarian costs $10 and there were no charges for changes - how much money has Pizza Runner made so far if there are no delivery fees?
 
 **Solution:**
 
@@ -755,7 +755,7 @@ In the first week, two runners signed up, in the second week one runner signed u
 **Answer:**
 
 
-#### 2. What if there was an additional $1 charge for any pizza extras?
+### 2. What if there was an additional $1 charge for any pizza extras?
 
 **Solution:**
 
@@ -767,7 +767,7 @@ In the first week, two runners signed up, in the second week one runner signed u
 **Answer:**
 
 
-#### 3. The Pizza Runner team now wants to add an additional ratings system that allows customers to rate their runner, how would you design an additional table for this new dataset - generate a schema for this new table and insert your own data for ratings for each successful customer order between 1 to 5.
+### 3. The Pizza Runner team now wants to add an additional ratings system that allows customers to rate their runner, how would you design an additional table for this new dataset - generate a schema for this new table and insert your own data for ratings for each successful customer order between 1 to 5.
 
 **Solution:**
 
@@ -779,7 +779,7 @@ In the first week, two runners signed up, in the second week one runner signed u
 **Answer:**
 
 
-#### 4. Using your newly generated table - can you join all of the information together to form a table which has the following information for successful deliveries?
+### 4. Using your newly generated table - can you join all of the information together to form a table which has the following information for successful deliveries?
 
 **Solution:**
 
@@ -791,7 +791,7 @@ In the first week, two runners signed up, in the second week one runner signed u
 **Answer:**
 
 
-#### 5. If a Meat Lovers pizza was $12 and Vegetarian $10 fixed prices with no cost for extras and each runner is paid $0.30 per kilometre traveled - how much money does Pizza Runner have left over after these deliveries?
+### 5. If a Meat Lovers pizza was $12 and Vegetarian $10 fixed prices with no cost for extras and each runner is paid $0.30 per kilometre traveled - how much money does Pizza Runner have left over after these deliveries?
 
 **Solution:**
 
