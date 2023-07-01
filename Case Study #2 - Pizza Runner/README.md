@@ -356,14 +356,14 @@ GROUP BY c.pizza_id;
 
 ### 5. How many Vegetarian and Meatlovers were ordered by each customer?
 
+**Solution:**
+
 - Retrieve the customer_id and pizza_id columns, as well as the count of each pizza_id for each customer_id, from the temp_customer_orders table.
 - Group the results by customer_id and pizza_id, and assign the count as order_count.
 - Alias the subquery as "c".
 - Join the pizza_names table (aliased as p) with the subquery "c" using the pizza_id column as the join condition.
 - Select the customer_id, pizza_name from the pizza_names table, and order_count from the subquery "c".
 - Order the results by customer_id.
-
-**Solution:**
 
 ```sql
 SELECT 
@@ -599,24 +599,70 @@ In the first week, two runners signed up, in the second week one runner signed u
 
 **Solution:**
 
+- Retrieve the runner_id column and calculate the average duration using the AVG() function, assigning it an alias avg_time.
+- Retrieve the data from the table named temp_runner_orders.
+- Filter out any records where the duration column is not equal to 0, excluding any missing or invalid data.
+- Group the results by the runner_id column.
+
 ```sql
-
-
+SELECT 
+	runner_id, 
+	AVG(duration) AS avg_time
+FROM temp_runner_orders
+WHERE duration <> 0
+GROUP BY runner_id;
 ```
 
 **Answer:**
+
+| runner_id | avg_time |
+| --------- | -------- |
+| 1         | 22       |
+| 2         | 26       |
+| 3         | 15       |
+
+Runner 1 took an average of 22 minutes, runner 2 took an average of 26 minutes and runner 3 took an average of 15 minutes to arrive at the Pizza Runner HQ to pick up the order.
 
 
 ### 3. Is there any relationship between the number of pizzas and how long the order takes to prepare?
 
 **Solution:**
 
+- Retrieve the order_id column from the temp_customer_orders table.
+- Count the occurrences of pizza_id for each order and assign it an alias num_pizzas.
+- Retrieve the duration column from the temp_runner_orders table.
+- Join the temp_customer_orders and temp_runner_orders tables based on the matching order_id column.
+- Exclude any records where the duration column is not equal to 0, filtering out missing or invalid data.
+- Group the results by the order_id and duration columns.
+- Arrange the result set in descending order based on the num_pizzas.
+
 ```sql
-
-
+SELECT 
+	c.order_id,
+	COUNT(pizza_id) AS num_pizzas,
+	r.duration
+FROM temp_customer_orders AS c
+JOIN temp_runner_orders AS r
+ON c.order_id = r.order_id
+WHERE duration <> 0
+GROUP BY c.order_id, r.duration
+ORDER BY num_pizzas DESC;
 ```
 
 **Answer:**
+
+| order_id | num_pizzas | duration |
+| -------- | ---------- | -------- |
+| 4        | 3          | 40       |
+| 3        | 2          | 20       |
+| 10       | 2          | 10       |
+| 1        | 1          | 32       |
+| 2        | 1          | 27       |
+| 5        | 1          | 15       |
+| 7        | 1          | 25       |
+| 8        | 1          | 15       |
+
+There is no clear linear relationship between the number of pizzas and the duration. The number of pizzas alone does not seem to directly dictate how long the order takes to prepare. 
 
 
 ### 4. What was the average distance travelled for each customer?
@@ -624,12 +670,25 @@ In the first week, two runners signed up, in the second week one runner signed u
 **Solution:**
 
 ```sql
-
-
+SELECT
+	c.customer_id,
+	ROUND(AVG(distance),1) AS avg_dist
+FROM temp_customer_orders AS c
+JOIN temp_runner_orders AS r
+ON c.order_id = r.order_id
+WHERE distance <> 0
+GROUP BY c.customer_id;
 ```
 
 **Answer:**
 
+| customer_id | avg_dist |
+| ----------- | -------- |
+| 101         | 20       |
+| 102         | 16.7     |
+| 103         | 23.4     |
+| 104         | 10       |
+| 105         | 25       |
 
 ### 5. What was the difference between the longest and shortest delivery times for all orders?
 
