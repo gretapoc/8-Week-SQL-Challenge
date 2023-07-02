@@ -1,6 +1,6 @@
 # 8-Week-SQL-Challenge
 
-This project contains solutions for the [8 Week SQL Challenge](https://8weeksqlchallenge.com/getting-started/){target="_blank"} by Danny Ma.
+This project contains solutions for the [8 Week SQL Challenge](https://8weeksqlchallenge.com/getting-started/) by Danny Ma.
 
 # Case Studies
 
